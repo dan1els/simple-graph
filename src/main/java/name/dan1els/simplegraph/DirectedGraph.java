@@ -11,17 +11,17 @@ import java.util.stream.Collectors;
 
 public class DirectedGraph<ID, T> implements Graph<ID, T> {
     
-    private final Map<Vertex<ID, T>, Set<Edge<ID, T>>> adjMap;
+    private final Map<Vertex<ID, T>, Set<Edge<ID, T>>> adjSource;
     private final ShortPathStrategyFactory<ID, T> strategyFactory;
     
     public DirectedGraph(ShortPathStrategyFactory<ID, T> strategyFactory) {
         this.strategyFactory = strategyFactory;
-        this.adjMap = new ConcurrentHashMap<>();
+        this.adjSource = new ConcurrentHashMap<>();
     }
     
     @Override
     public DirectedGraph<ID, T> addV(Vertex<ID, T> vertex) {
-        adjMap.putIfAbsent(vertex, new HashSet<>());
+        adjSource.putIfAbsent(vertex, new HashSet<>());
         return this;
     }
     
@@ -29,28 +29,28 @@ public class DirectedGraph<ID, T> implements Graph<ID, T> {
     public DirectedGraph<ID, T> addE(Vertex<ID, T> from, Vertex<ID, T> to) {
         addV(to);
         synchronized (this) {
-            var edges = adjMap.getOrDefault(from, new HashSet<>());
+            var edges = adjSource.getOrDefault(from, new HashSet<>());
             edges.add(new Edge<>(to));
-            adjMap.put(from, edges);
+            adjSource.put(from, edges);
         }
         return this;
     }
     
     @Override
     public Set<Vertex<ID, T>> vertices() {
-        return adjMap.keySet()
+        return adjSource.keySet()
             .stream()
             .collect(Collectors.toUnmodifiableSet());
     }
     
     @Override
     public Set<Edge<ID, T>> outEdges(Vertex<ID, T> from) {
-        return Set.copyOf(adjMap.get(from));
+        return Set.copyOf(adjSource.get(from));
     }
     
     @Override
     public Vertex<ID, T> findV(ID label) {
-        return adjMap.keySet()
+        return adjSource.keySet()
             .stream()
             .filter(v -> v.hasLabel(label))
             .findAny()
@@ -59,6 +59,6 @@ public class DirectedGraph<ID, T> implements Graph<ID, T> {
     
     @Override
     public LinkedList<Vertex<ID, T>> shortestPath(Vertex<ID, T> from, Vertex<ID, T> to) {
-        return strategyFactory.newStrategy(adjMap).shortestPath(from, to);
+        return strategyFactory.newInstance(adjSource).shortestPath(from, to);
     }
 }

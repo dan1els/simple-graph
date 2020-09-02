@@ -8,5 +8,5 @@ import java.util.Set;
 
 public interface ShortPathStrategyFactory<ID, T> {
     
-    ShortPathStrategy<ID, T> newStrategy(Map<Vertex<ID, T>, Set<Edge<ID, T>>> adjSource);
+    ShortPathStrategy<ID, T> newInstance(Map<Vertex<ID, T>, Set<Edge<ID, T>>> adjSource);
 }
