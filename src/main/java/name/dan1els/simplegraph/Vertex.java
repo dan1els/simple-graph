@@ -6,7 +6,7 @@ import lombok.ToString;
 
 @EqualsAndHashCode
 @ToString
-public class Vertex<ID extends Comparable<ID>, T> {
+public class Vertex<ID, T> {
     
     private final ID label;
     @EqualsAndHashCode.Exclude

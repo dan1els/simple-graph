@@ -4,7 +4,7 @@ import name.dan1els.simplegraph.Vertex;
 
 import java.util.LinkedList;
 
-public interface ShortPathStrategy<ID extends Comparable<ID>, T> {
+public interface ShortPathStrategy<ID, T> {
     
     LinkedList<Vertex<ID, T>> shortestPath(Vertex<ID, T> from, Vertex<ID, T> to);
     

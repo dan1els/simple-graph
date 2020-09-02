@@ -9,7 +9,7 @@ import lombok.ToString;
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class VoidVertex<ID extends Comparable<ID>> extends Vertex<ID, Void> {
+public class VoidVertex<ID> extends Vertex<ID, Void> {
     
     public VoidVertex(ID label) {
         super(label, null);

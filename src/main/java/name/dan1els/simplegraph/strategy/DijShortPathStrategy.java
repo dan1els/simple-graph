@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
  * Implementation of Dijkstra shortest path algo.
  *
  * Not thread-safe.
- * @param <ID extends Comparable<ID>, T> -- type of vertices.
+ * @param <ID, T> -- type of vertices.
  */
-public class DijShortPathStrategy<ID extends Comparable<ID>, T> implements ShortPathStrategy<ID, T> {
+public class DijShortPathStrategy<ID, T> implements ShortPathStrategy<ID, T> {
     
     private final LinkedList<Vertex<ID, T>> unsettledQueue = new LinkedList<>();
     private final Set<Vertex<ID, T>> visitedVs = new HashSet<>();
