@@ -2,6 +2,7 @@ package name.dan1els.simplegraph.strategy;
 
 import name.dan1els.simplegraph.Edge;
 import name.dan1els.simplegraph.Vertex;
+import name.dan1els.simplegraph.source.AdjacencyList;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,12 +24,12 @@ public class DijShortPathStrategy<ID, T> implements ShortPathStrategy<ID, T> {
     private final Set<Vertex<ID, T>> visitedVs = new HashSet<>();
     private final Map<Vertex<ID, T>, Vertex<ID, T>> predecessors = new HashMap<>();
     
-    private final Map<Vertex<ID, T>, Set<Edge<ID, T>>> adjSource;
+    private final AdjacencyList<ID, T> adjSource;
     private final Map<Vertex<ID, T>, Integer> distances;
     
-    public DijShortPathStrategy(Map<Vertex<ID, T>, Set<Edge<ID, T>>> adjSource) {
+    public DijShortPathStrategy(AdjacencyList<ID, T> adjSource) {
         this.adjSource = adjSource;
-        this.distances = adjSource.keySet()
+        this.distances = adjSource.vertices()
             .stream()
             .collect(Collectors.toMap(Function.identity(), v -> Integer.MAX_VALUE));
     }
@@ -47,7 +48,7 @@ public class DijShortPathStrategy<ID, T> implements ShortPathStrategy<ID, T> {
     private boolean traverse(Vertex<ID, T> destination) {
         while (!unsettledQueue.isEmpty()) {
             var current = unsettledQueue.poll();
-            for (Edge<ID, T> edge : adjSource.get(current)) {
+            for (Edge<ID, T> edge : adjSource.outEdges(current)) {
                 var neighbour = edge.outV();
                 if (!visitedVs.contains(neighbour)) {
                     visitedVs.add(neighbour);
