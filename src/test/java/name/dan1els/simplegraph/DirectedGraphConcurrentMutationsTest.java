@@ -40,10 +40,10 @@ class DirectedGraphConcurrentMutationsTest {
     
     @Test
     void addE() throws InterruptedException {
-        var from = new Vertex<>(0);
+        var fromV = new Vertex<>(0);
         var executor = newFixedThreadPool(8);
         var sut = new DirectedGraph<Integer>()
-            .addV(from);
+            .addV(fromV);
         
         var outVs = IntStream.range(1, 10001)
             .mapToObj(Vertex::new)
@@ -52,7 +52,7 @@ class DirectedGraphConcurrentMutationsTest {
         try {
             outVs.forEach(it ->
                 executor.submit(() ->
-                    sut.addE(from, it)
+                    sut.addE(fromV, it)
                 )
             );
         } finally {
@@ -61,9 +61,14 @@ class DirectedGraphConcurrentMutationsTest {
     
         executor.awaitTermination(2000, TimeUnit.MILLISECONDS);
         
-        assertThat(sut.outEdges(from))
+        assertThat(sut.outEdges(fromV))
             .hasSize(10000)
             .extracting(e -> e.to)
             .containsExactlyInAnyOrderElementsOf(outVs);
+        
+        assertThat(sut.vertices())
+            .hasSize(10001)
+            .containsAll(outVs)
+            .contains(fromV);
     }
 }
