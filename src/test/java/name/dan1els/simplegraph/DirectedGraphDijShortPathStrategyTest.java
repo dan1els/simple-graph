@@ -1,5 +1,6 @@
 package name.dan1els.simplegraph;
 
+import name.dan1els.simplegraph.source.AdjacencyList;
 import name.dan1els.simplegraph.strategy.DijShortPathStrategy;
 import org.junit.jupiter.api.Test;
 
@@ -15,8 +16,10 @@ class DirectedGraphDijShortPathStrategyTest {
      */
     @Test
     void shortestPathNoCycleExists() {
-        
-        var graph = new DirectedGraph<Integer, Void>(DijShortPathStrategy::new)
+        var graph = new DirectedGraph<Integer, Void>(
+            new AdjacencyList<>(),
+            DijShortPathStrategy::new
+        )
             .addV(new VoidVertex<>(0))
             .addV(new VoidVertex<>(1))
             .addV(new VoidVertex<>(2))
@@ -42,7 +45,10 @@ class DirectedGraphDijShortPathStrategyTest {
      */
     @Test
     void shortestPathWithCycleExists() {
-        var graph = new DirectedGraph<Integer, Void>(DijShortPathStrategy::new)
+        var graph = new DirectedGraph<Integer, Void>(
+            new AdjacencyList<>(),
+            DijShortPathStrategy::new
+        )
             .addV(new VoidVertex<>(0))
             .addV(new VoidVertex<>(1))
             .addV(new VoidVertex<>(2))
@@ -70,7 +76,10 @@ class DirectedGraphDijShortPathStrategyTest {
      */
     @Test
     void shortestPathNoCycleDoesNotExist() {
-        var graph = new DirectedGraph<Integer, Void>(DijShortPathStrategy::new)
+        var graph = new DirectedGraph<Integer, Void>(
+            new AdjacencyList<>(),
+            DijShortPathStrategy::new
+        )
             .addV(new VoidVertex<>(0))
             .addV(new VoidVertex<>(1))
             .addV(new VoidVertex<>(2))
@@ -91,7 +100,10 @@ class DirectedGraphDijShortPathStrategyTest {
      */
     @Test
     void shortestPathCycleDoesNotExist() {
-        var graph = new DirectedGraph<Integer, Void>(DijShortPathStrategy::new)
+        var graph = new DirectedGraph<Integer, Void>(
+            new AdjacencyList<>(),
+            DijShortPathStrategy::new
+        )
             .addV(new VoidVertex<>(0))
             .addV(new VoidVertex<>(1))
             .addV(new VoidVertex<>(2))

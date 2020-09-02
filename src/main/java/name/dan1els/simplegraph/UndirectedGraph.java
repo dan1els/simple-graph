@@ -1,5 +1,6 @@
 package name.dan1els.simplegraph;
 
+import name.dan1els.simplegraph.source.AdjacencySource;
 import name.dan1els.simplegraph.strategy.ShortPathStrategyFactory;
 
 import java.util.LinkedList;
@@ -9,8 +10,11 @@ public class UndirectedGraph<ID, T> implements Graph<ID, T> {
     
     private final DirectedGraph<ID, T> decorated;
     
-    public UndirectedGraph(ShortPathStrategyFactory<ID, T> pathStrategyFactory) {
-        decorated = new DirectedGraph<>(pathStrategyFactory);
+    public UndirectedGraph(
+        AdjacencySource<ID, T> adjacencySource,
+        ShortPathStrategyFactory<ID, T> pathStrategyFactory
+    ) {
+        decorated = new DirectedGraph<>(adjacencySource, pathStrategyFactory);
     }
     
     @Override

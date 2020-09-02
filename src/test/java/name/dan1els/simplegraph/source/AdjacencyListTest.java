@@ -1,6 +1,7 @@
-package name.dan1els.simplegraph;
+package name.dan1els.simplegraph.source;
 
-import name.dan1els.simplegraph.strategy.DijShortPathStrategy;
+import name.dan1els.simplegraph.Edge;
+import name.dan1els.simplegraph.Vertex;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -10,12 +11,12 @@ import java.util.stream.IntStream;
 import static java.util.concurrent.Executors.newFixedThreadPool;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class DirectedGraphConcurrentMutationsTest {
+class AdjacencyListTest {
     
     @Test
     void addV() throws InterruptedException {
         
-        var sut = new DirectedGraph<Integer, Integer>(DijShortPathStrategy::new);
+        var sut = new AdjacencyList<Integer, Integer>();
         var executor = newFixedThreadPool(8);
         
         var vertices = IntStream.range(0, 100000)
@@ -43,8 +44,8 @@ class DirectedGraphConcurrentMutationsTest {
     void addE() throws InterruptedException {
         var fromV = new Vertex<>(0, 0);
         var executor = newFixedThreadPool(8);
-        var sut = new DirectedGraph<Integer, Integer>(DijShortPathStrategy::new)
-            .addV(fromV);
+        var sut = new AdjacencyList<Integer, Integer>();
+        sut.addV(fromV);
         
         var outVs = IntStream.range(1, 10001)
             .mapToObj(i -> new Vertex<>(i, i))

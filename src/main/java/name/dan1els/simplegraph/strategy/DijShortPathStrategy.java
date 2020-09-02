@@ -2,7 +2,7 @@ package name.dan1els.simplegraph.strategy;
 
 import name.dan1els.simplegraph.Edge;
 import name.dan1els.simplegraph.Vertex;
-import name.dan1els.simplegraph.source.AdjacencyList;
+import name.dan1els.simplegraph.source.AdjacencySource;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,7 +16,8 @@ import java.util.stream.Collectors;
  * Implementation of Dijkstra shortest path algo.
  *
  * Not thread-safe.
- * @param <ID, T> -- type of vertices.
+ * @param <ID> -- vertex label type.
+ * @param <T> -- vertex payload type.
  */
 public class DijShortPathStrategy<ID, T> implements ShortPathStrategy<ID, T> {
     
@@ -24,10 +25,10 @@ public class DijShortPathStrategy<ID, T> implements ShortPathStrategy<ID, T> {
     private final Set<Vertex<ID, T>> visitedVs = new HashSet<>();
     private final Map<Vertex<ID, T>, Vertex<ID, T>> predecessors = new HashMap<>();
     
-    private final AdjacencyList<ID, T> adjSource;
+    private final AdjacencySource<ID, T> adjSource;
     private final Map<Vertex<ID, T>, Integer> distances;
     
-    public DijShortPathStrategy(AdjacencyList<ID, T> adjSource) {
+    public DijShortPathStrategy(AdjacencySource<ID, T> adjSource) {
         this.adjSource = adjSource;
         this.distances = adjSource.vertices()
             .stream()

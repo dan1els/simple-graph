@@ -1,6 +1,6 @@
 package name.dan1els.simplegraph;
 
-import name.dan1els.simplegraph.source.AdjacencyList;
+import name.dan1els.simplegraph.source.AdjacencySource;
 import name.dan1els.simplegraph.strategy.ShortPathStrategyFactory;
 
 import java.util.LinkedList;
@@ -8,12 +8,15 @@ import java.util.Set;
 
 public class DirectedGraph<ID, T> implements Graph<ID, T> {
     
-    private final AdjacencyList<ID, T> adjSource;
+    private final AdjacencySource<ID, T> adjSource;
     private final ShortPathStrategyFactory<ID, T> pathStrategyFactory;
     
-    public DirectedGraph(ShortPathStrategyFactory<ID, T> pathStrategyFactory) {
+    public DirectedGraph(
+        AdjacencySource<ID, T> adjacencySource,
+        ShortPathStrategyFactory<ID, T> pathStrategyFactory
+    ) {
+        this.adjSource = adjacencySource;
         this.pathStrategyFactory = pathStrategyFactory;
-        this.adjSource = new AdjacencyList<>();
     }
     
     @Override

@@ -1,5 +1,6 @@
 package name.dan1els.simplegraph;
 
+import name.dan1els.simplegraph.source.AdjacencyList;
 import name.dan1els.simplegraph.strategy.DijShortPathStrategy;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,10 @@ class UndirectedGraphDijShortPathStrategyTest {
      */
     @Test
     void shortestPathExists() {
-        var graph = new UndirectedGraph<Integer, Void>(DijShortPathStrategy::new)
+        var graph = new UndirectedGraph<Integer, Void>(
+            new AdjacencyList<>(),
+            DijShortPathStrategy::new
+        )
             .addV(new VoidVertex<>(0))
             .addV(new VoidVertex<>(1))
             .addV(new VoidVertex<>(2))
@@ -40,7 +44,10 @@ class UndirectedGraphDijShortPathStrategyTest {
      */
     @Test
     void shortestPathDoesNotExist() {
-        var graph = new UndirectedGraph<Integer, Void>(DijShortPathStrategy::new)
+        var graph = new UndirectedGraph<Integer, Void>(
+            new AdjacencyList<>(),
+            DijShortPathStrategy::new
+        )
             .addV(new VoidVertex<>(0))
             .addV(new VoidVertex<>(1))
             .addV(new VoidVertex<>(2))
