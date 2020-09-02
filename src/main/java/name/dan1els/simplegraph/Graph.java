@@ -5,9 +5,9 @@ import java.util.Set;
 
 public interface Graph<ID, T> {
     
-    DirectedGraph<ID, T> addV(Vertex<ID, T> vertex);
+    Graph<ID, T> addV(Vertex<ID, T> vertex);
     
-    DirectedGraph<ID, T> addE(Vertex<ID, T> from, Vertex<ID, T> to);
+    Graph<ID, T> addE(Vertex<ID, T> from, Vertex<ID, T> to);
     
     Set<Vertex<ID, T>> vertices();
     

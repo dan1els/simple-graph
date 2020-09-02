@@ -14,7 +14,7 @@ class DirectedGraphDijShortPathStrategyTest {
      *   2 -> 3
      */
     @Test
-    void shortestPathNoCycleExist() {
+    void shortestPathNoCycleExists() {
         
         var graph = new DirectedGraph<Integer, Void>(DijShortPathStrategy::new)
             .addV(new VoidVertex<>(0))
@@ -41,7 +41,7 @@ class DirectedGraphDijShortPathStrategyTest {
      *   2 -> 3 -> 4
      */
     @Test
-    void shortestPathWithCycleExist() {
+    void shortestPathWithCycleExists() {
         var graph = new DirectedGraph<Integer, Void>(DijShortPathStrategy::new)
             .addV(new VoidVertex<>(0))
             .addV(new VoidVertex<>(1))

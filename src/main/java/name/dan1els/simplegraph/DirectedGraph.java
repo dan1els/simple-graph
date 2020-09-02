@@ -12,21 +12,21 @@ import java.util.stream.Collectors;
 public class DirectedGraph<ID, T> implements Graph<ID, T> {
     
     private final Map<Vertex<ID, T>, Set<Edge<ID, T>>> adjSource;
-    private final ShortPathStrategyFactory<ID, T> strategyFactory;
+    private final ShortPathStrategyFactory<ID, T> pathStrategyFactory;
     
-    public DirectedGraph(ShortPathStrategyFactory<ID, T> strategyFactory) {
-        this.strategyFactory = strategyFactory;
+    public DirectedGraph(ShortPathStrategyFactory<ID, T> pathStrategyFactory) {
+        this.pathStrategyFactory = pathStrategyFactory;
         this.adjSource = new ConcurrentHashMap<>();
     }
     
     @Override
-    public DirectedGraph<ID, T> addV(Vertex<ID, T> vertex) {
+    public Graph<ID, T> addV(Vertex<ID, T> vertex) {
         adjSource.putIfAbsent(vertex, new HashSet<>());
         return this;
     }
     
     @Override
-    public DirectedGraph<ID, T> addE(Vertex<ID, T> from, Vertex<ID, T> to) {
+    public Graph<ID, T> addE(Vertex<ID, T> from, Vertex<ID, T> to) {
         addV(to);
         synchronized (this) {
             var edges = adjSource.getOrDefault(from, new HashSet<>());
@@ -59,6 +59,6 @@ public class DirectedGraph<ID, T> implements Graph<ID, T> {
     
     @Override
     public LinkedList<Vertex<ID, T>> shortestPath(Vertex<ID, T> from, Vertex<ID, T> to) {
-        return strategyFactory.newInstance(adjSource).shortestPath(from, to);
+        return pathStrategyFactory.newInstance(adjSource).shortestPath(from, to);
     }
 }
