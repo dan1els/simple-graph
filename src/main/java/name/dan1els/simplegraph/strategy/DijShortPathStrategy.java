@@ -1,4 +1,4 @@
-package name.dan1els.simplegraph.path;
+package name.dan1els.simplegraph.strategy;
 
 import name.dan1els.simplegraph.Edge;
 import name.dan1els.simplegraph.Vertex;
@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
  * Implementation of Dijkstra shortest path algo.
  *
  * Not thread-safe.
- * @param <ID, T> -- type of vertices.
+ * @param <ID extends Comparable<ID>, T> -- type of vertices.
  */
-public class DijkstraPathStrategy<ID extends Comparable<?>, T> implements PathStrategy<ID, T> {
+public class DijShortPathStrategy<ID extends Comparable<ID>, T> implements ShortPathStrategy<ID, T> {
     
     private final LinkedList<Vertex<ID, T>> unsettledQueue = new LinkedList<>();
     private final Set<Vertex<ID, T>> visitedVs = new HashSet<>();
@@ -26,7 +26,7 @@ public class DijkstraPathStrategy<ID extends Comparable<?>, T> implements PathSt
     private final Map<Vertex<ID, T>, Set<Edge<ID, T>>> adjSource;
     private final Map<Vertex<ID, T>, Integer> distances;
     
-    public DijkstraPathStrategy(Map<Vertex<ID, T>, Set<Edge<ID, T>>> adjSource) {
+    public DijShortPathStrategy(Map<Vertex<ID, T>, Set<Edge<ID, T>>> adjSource) {
         this.adjSource = adjSource;
         this.distances = adjSource.keySet()
             .stream()

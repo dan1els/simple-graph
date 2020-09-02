@@ -1,6 +1,6 @@
 package name.dan1els.simplegraph;
 
-import name.dan1els.simplegraph.path.DijkstraPathStrategy;
+import name.dan1els.simplegraph.strategy.DijShortPathStrategy;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -15,7 +15,7 @@ class DirectedGraphConcurrentMutationsTest {
     @Test
     void addV() throws InterruptedException {
         
-        var sut = new DirectedGraph<Integer, Integer>(DijkstraPathStrategy::new);
+        var sut = new DirectedGraph<Integer, Integer>(DijShortPathStrategy::new);
         var executor = newFixedThreadPool(8);
         
         var vertices = IntStream.range(0, 100000)
@@ -43,7 +43,7 @@ class DirectedGraphConcurrentMutationsTest {
     void addE() throws InterruptedException {
         var fromV = new Vertex<>(0, 0);
         var executor = newFixedThreadPool(8);
-        var sut = new DirectedGraph<Integer, Integer>(DijkstraPathStrategy::new)
+        var sut = new DirectedGraph<Integer, Integer>(DijShortPathStrategy::new)
             .addV(fromV);
         
         var outVs = IntStream.range(1, 10001)

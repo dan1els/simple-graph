@@ -1,25 +1,22 @@
 package name.dan1els.simplegraph;
 
-import name.dan1els.simplegraph.path.PathStrategy;
+import name.dan1els.simplegraph.strategy.ShortPathStrategyFactory;
 
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class DirectedGraph<ID extends Comparable<?>, T> {
+public class DirectedGraph<ID extends Comparable<ID>, T> {
     
     private final Map<Vertex<ID, T>, Set<Edge<ID, T>>> adjMap;
-    private final Function<Map<Vertex<ID, T>, Set<Edge<ID, T>>>, PathStrategy<ID, T>> pathStrategyProvider;
+    private final ShortPathStrategyFactory<ID, T> strategyFactory;
     
-    public DirectedGraph(
-        Function<Map<Vertex<ID, T>, Set<Edge<ID, T>>>, PathStrategy<ID, T>> pathStrategyProvider
-    ) {
-        this.pathStrategyProvider = pathStrategyProvider;
-        adjMap = new ConcurrentHashMap<>();
+    public DirectedGraph(ShortPathStrategyFactory<ID, T> strategyFactory) {
+        this.strategyFactory = strategyFactory;
+        this.adjMap = new ConcurrentHashMap<>();
     }
     
     public DirectedGraph<ID, T> addV(Vertex<ID, T> vertex) {
@@ -56,6 +53,6 @@ public class DirectedGraph<ID extends Comparable<?>, T> {
     }
     
     public LinkedList<Vertex<ID, T>> shortestPath(Vertex<ID, T> from, Vertex<ID, T> to) {
-        return pathStrategyProvider.apply(adjMap).shortestPath(from, to);
+        return strategyFactory.newStrategy(adjMap).shortestPath(from, to);
     }
 }

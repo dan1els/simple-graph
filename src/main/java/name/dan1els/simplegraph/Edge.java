@@ -3,7 +3,7 @@ package name.dan1els.simplegraph;
 import lombok.ToString;
 
 @ToString
-public class Edge<ID extends Comparable<?>, T> {
+public class Edge<ID extends Comparable<ID>, T> {
     
     private final Vertex<ID, T> to;
     //TODO: TBD
