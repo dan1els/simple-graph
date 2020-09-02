@@ -1,5 +1,6 @@
 package name.dan1els.simplegraph;
 
+import name.dan1els.simplegraph.path.DijkstraPathStrategy;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -14,11 +15,11 @@ class DirectedGraphConcurrentMutationsTest {
     @Test
     void addV() throws InterruptedException {
         
-        var sut = new DirectedGraph<Integer>();
+        var sut = new DirectedGraph<Integer, Integer>(DijkstraPathStrategy::new);
         var executor = newFixedThreadPool(8);
         
         var vertices = IntStream.range(0, 100000)
-            .mapToObj(Vertex::new)
+            .mapToObj(i -> new Vertex<>(i, i))
             .collect(Collectors.toUnmodifiableSet());
         
         try {
@@ -30,7 +31,7 @@ class DirectedGraphConcurrentMutationsTest {
         } finally {
             executor.shutdown();
         }
-    
+        
         executor.awaitTermination(2000, TimeUnit.MILLISECONDS);
         
         assertThat(sut.vertices())
@@ -40,13 +41,13 @@ class DirectedGraphConcurrentMutationsTest {
     
     @Test
     void addE() throws InterruptedException {
-        var fromV = new Vertex<>(0);
+        var fromV = new Vertex<>(0, 0);
         var executor = newFixedThreadPool(8);
-        var sut = new DirectedGraph<Integer>()
+        var sut = new DirectedGraph<Integer, Integer>(DijkstraPathStrategy::new)
             .addV(fromV);
         
         var outVs = IntStream.range(1, 10001)
-            .mapToObj(Vertex::new)
+            .mapToObj(i -> new Vertex<>(i, i))
             .collect(Collectors.toUnmodifiableSet());
         
         try {
@@ -58,12 +59,12 @@ class DirectedGraphConcurrentMutationsTest {
         } finally {
             executor.shutdown();
         }
-    
+        
         executor.awaitTermination(2000, TimeUnit.MILLISECONDS);
         
         assertThat(sut.outEdges(fromV))
             .hasSize(10000)
-            .extracting(e -> e.to)
+            .extracting(Edge::outV)
             .containsExactlyInAnyOrderElementsOf(outVs);
         
         assertThat(sut.vertices())

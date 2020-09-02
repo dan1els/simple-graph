@@ -3,13 +3,17 @@ package name.dan1els.simplegraph;
 import lombok.ToString;
 
 @ToString
-public class Edge<T> {
+public class Edge<ID extends Comparable<?>, T> {
     
-    public final Vertex<T> to;
+    private final Vertex<ID, T> to;
     //TODO: TBD
     private final double weight = 1;
     
-    public Edge(Vertex<T> to) {
+    public Edge(Vertex<ID, T> to) {
         this.to = to;
+    }
+    
+    public Vertex<ID, T> outV() {
+        return to;
     }
 }

@@ -3,20 +3,25 @@ package name.dan1els.simplegraph;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.util.UUID;
-
-import static java.util.UUID.randomUUID;
-
 @EqualsAndHashCode
 @ToString
-public class Vertex<T> {
+public class Vertex<ID extends Comparable<?>, T> {
     
-     private final UUID uuid;
-     @EqualsAndHashCode.Exclude
-     private final T payload;
-     
-     public Vertex(T payload) {
-         this.uuid = randomUUID();
-         this.payload = payload;
-     }
+    private final ID label;
+    @EqualsAndHashCode.Exclude
+    private final T payload;
+    
+    public Vertex(ID label) {
+        this.label = label;
+        payload = null;
+    }
+    
+    public Vertex(ID label, T payload) {
+        this.label = label;
+        this.payload = payload;
+    }
+    
+    public boolean hasLabel(ID label) {
+        return this.label.equals(label);
+    }
 }
