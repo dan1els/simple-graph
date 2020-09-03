@@ -1,12 +1,12 @@
 package name.dan1els.simplegraph;
 
 import name.dan1els.simplegraph.source.AdjacencyList;
-import name.dan1els.simplegraph.strategy.DijShortPathStrategy;
+import name.dan1els.simplegraph.strategy.BFSShortestPathStrategy;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
-class DirectedGraphDijShortPathStrategyTest {
+class DirectedGraphBFSShortestPathStrategyTest {
     
     /**
      * Graph:
@@ -18,7 +18,7 @@ class DirectedGraphDijShortPathStrategyTest {
     void shortestPathNoCycleExists() {
         var graph = new DirectedGraph<Integer, Void>(
             new AdjacencyList<>(),
-            DijShortPathStrategy::new
+            BFSShortestPathStrategy::new
         )
             .addV(new VoidVertex<>(0))
             .addV(new VoidVertex<>(1))
@@ -47,7 +47,7 @@ class DirectedGraphDijShortPathStrategyTest {
     void shortestPathWithCycleExists() {
         var graph = new DirectedGraph<Integer, Void>(
             new AdjacencyList<>(),
-            DijShortPathStrategy::new
+            BFSShortestPathStrategy::new
         )
             .addV(new VoidVertex<>(0))
             .addV(new VoidVertex<>(1))
@@ -78,7 +78,7 @@ class DirectedGraphDijShortPathStrategyTest {
     void shortestPathNoCycleDoesNotExist() {
         var graph = new DirectedGraph<Integer, Void>(
             new AdjacencyList<>(),
-            DijShortPathStrategy::new
+            BFSShortestPathStrategy::new
         )
             .addV(new VoidVertex<>(0))
             .addV(new VoidVertex<>(1))
@@ -102,7 +102,7 @@ class DirectedGraphDijShortPathStrategyTest {
     void shortestPathCycleDoesNotExist() {
         var graph = new DirectedGraph<Integer, Void>(
             new AdjacencyList<>(),
-            DijShortPathStrategy::new
+            BFSShortestPathStrategy::new
         )
             .addV(new VoidVertex<>(0))
             .addV(new VoidVertex<>(1))

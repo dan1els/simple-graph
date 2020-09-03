@@ -1,12 +1,12 @@
 package name.dan1els.simplegraph;
 
 import name.dan1els.simplegraph.source.AdjacencyList;
-import name.dan1els.simplegraph.strategy.DijShortPathStrategy;
+import name.dan1els.simplegraph.strategy.BFSShortestPathStrategy;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
-class UndirectedGraphDijShortPathStrategyTest {
+class UndirectedGraphBFSShortestPathStrategyTest {
     
     /**
      * Graph:
@@ -18,7 +18,7 @@ class UndirectedGraphDijShortPathStrategyTest {
     void shortestPathExists() {
         var graph = new UndirectedGraph<Integer, Void>(
             new AdjacencyList<>(),
-            DijShortPathStrategy::new
+            BFSShortestPathStrategy::new
         )
             .addV(new VoidVertex<>(0))
             .addV(new VoidVertex<>(1))
@@ -46,7 +46,7 @@ class UndirectedGraphDijShortPathStrategyTest {
     void shortestPathDoesNotExist() {
         var graph = new UndirectedGraph<Integer, Void>(
             new AdjacencyList<>(),
-            DijShortPathStrategy::new
+            BFSShortestPathStrategy::new
         )
             .addV(new VoidVertex<>(0))
             .addV(new VoidVertex<>(1))
