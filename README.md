@@ -2,7 +2,7 @@
 
 Create a graph:
 
-```
+```java
 var graph = new DirectedGraph<Integer, Void>(
     new AdjacencyList<>(),
     BFSShortestPathStrategy::new
@@ -23,6 +23,7 @@ graph
 ```
 
 Find path between 2 vertices:
-```
+
+```java
 graph.shortestPath(graph.findV(0), graph.findV(4))
 ```
