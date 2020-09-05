@@ -5,15 +5,15 @@ import lombok.ToString;
 
 @EqualsAndHashCode
 @ToString
-public class Edge<ID, T> {
+public class Edge<T extends Vertex<?, ?>> {
     
-    private final Vertex<ID, T> to;
+    private final T to;
     
-    public Edge(Vertex<ID, T> to) {
+    public Edge(T to) {
         this.to = to;
     }
     
-    public Vertex<ID, T> outV() {
+    public T outV() {
         return to;
     }
 }

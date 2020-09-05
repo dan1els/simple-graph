@@ -18,11 +18,11 @@ import java.util.Set;
  * @param <ID> -- vertex label type.
  * @param <T> -- vertex payload type.
  */
-public class BFSShortestPathStrategy<ID, T> implements ShortestPathStrategy<ID, T> {
+public class BFSShortestPathStrategy<ID, T extends Vertex<ID, ?>> implements ShortestPathStrategy<ID, T> {
     
-    private final LinkedList<Vertex<ID, T>> unsettledQueue = new LinkedList<>();
-    private final Set<Vertex<ID, T>> visitedVs = new HashSet<>();
-    private final Map<Vertex<ID, T>, Vertex<ID, T>> predecessors = new HashMap<>();
+    private final LinkedList<T> unsettledQueue = new LinkedList<>();
+    private final Set<T> visitedVs = new HashSet<>();
+    private final Map<T, T> predecessors = new HashMap<>();
     
     private final AdjacencySource<ID, T> adjSource;
     
@@ -30,20 +30,20 @@ public class BFSShortestPathStrategy<ID, T> implements ShortestPathStrategy<ID, 
         this.adjSource = adjSource;
     }
     
-    public LinkedList<Vertex<ID, T>> shortestPath(Vertex<ID, T> from, Vertex<ID, T> to) {
+    public LinkedList<T> shortestPath(T from, T to) {
         initializeTraversing(from);
         return traverse(to) ? path(to) : new LinkedList<>();
     }
     
-    private void initializeTraversing(Vertex<ID, T> from) {
+    private void initializeTraversing(T from) {
         visitedVs.add(from);
         unsettledQueue.offer(from);
     }
     
-    private boolean traverse(Vertex<ID, T> destination) {
+    private boolean traverse(T destination) {
         while (!unsettledQueue.isEmpty()) {
             var current = unsettledQueue.poll();
-            for (Edge<ID, T> edge : adjSource.outEdges(current)) {
+            for (Edge<T> edge : adjSource.outEdges(current)) {
                 var neighbour = edge.outV();
                 if (!visitedVs.contains(neighbour)) {
                     visitedVs.add(neighbour);
@@ -59,8 +59,8 @@ public class BFSShortestPathStrategy<ID, T> implements ShortestPathStrategy<ID, 
         return false;
     }
     
-    private LinkedList<Vertex<ID, T>> path(Vertex<ID, T> destination) {
-        var path = new LinkedList<Vertex<ID, T>>() {{
+    private LinkedList<T> path(T destination) {
+        var path = new LinkedList<T>() {{
             add(destination);
         }};
         var cursor = destination;

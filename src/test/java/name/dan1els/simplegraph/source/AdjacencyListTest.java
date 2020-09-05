@@ -16,7 +16,7 @@ class AdjacencyListTest {
     @Test
     void addV() throws InterruptedException {
         
-        var sut = new AdjacencyList<Integer, Integer>();
+        var sut = new AdjacencyList<Integer, Vertex<Integer, Integer>>();
         var executor = newFixedThreadPool(8);
         
         var vertices = IntStream.range(0, 100000)
@@ -44,7 +44,7 @@ class AdjacencyListTest {
     void addE() throws InterruptedException {
         var fromV = new Vertex<>(0, 0);
         var executor = newFixedThreadPool(8);
-        var sut = new AdjacencyList<Integer, Integer>();
+        var sut = new AdjacencyList<Integer, Vertex<Integer, Integer>>();
         sut.addV(fromV);
         
         var outVs = IntStream.range(1, 10001)

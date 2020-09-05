@@ -16,7 +16,7 @@ class DirectedGraphBFSShortestPathStrategyTest {
      */
     @Test
     void shortestPathNoCycleExists() {
-        var graph = new DirectedGraph<Integer, Void>(
+        var graph = new DirectedGraph<Integer, VoidVertex<Integer>>(
             new AdjacencyList<>(),
             BFSShortestPathStrategy::new
         )
@@ -45,7 +45,7 @@ class DirectedGraphBFSShortestPathStrategyTest {
      */
     @Test
     void shortestPathWithCycleExists() {
-        var graph = new DirectedGraph<Integer, Void>(
+        var graph = new DirectedGraph<Integer, VoidVertex<Integer>>(
             new AdjacencyList<>(),
             BFSShortestPathStrategy::new
         )
@@ -76,7 +76,7 @@ class DirectedGraphBFSShortestPathStrategyTest {
      */
     @Test
     void shortestPathNoCycleDoesNotExist() {
-        var graph = new DirectedGraph<Integer, Void>(
+        var graph = new DirectedGraph<Integer, VoidVertex<Integer>>(
             new AdjacencyList<>(),
             BFSShortestPathStrategy::new
         )
@@ -100,7 +100,7 @@ class DirectedGraphBFSShortestPathStrategyTest {
      */
     @Test
     void shortestPathCycleDoesNotExist() {
-        var graph = new DirectedGraph<Integer, Void>(
+        var graph = new DirectedGraph<Integer, VoidVertex<Integer>>(
             new AdjacencyList<>(),
             BFSShortestPathStrategy::new
         )

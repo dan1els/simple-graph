@@ -6,7 +6,7 @@ import name.dan1els.simplegraph.strategy.ShortPathStrategyFactory;
 import java.util.LinkedList;
 import java.util.Set;
 
-public class UndirectedGraph<ID, T> implements Graph<ID, T> {
+public class UndirectedGraph<ID, T extends Vertex<ID, ?>> implements Graph<ID, T> {
     
     private final DirectedGraph<ID, T> decorated;
     
@@ -18,35 +18,35 @@ public class UndirectedGraph<ID, T> implements Graph<ID, T> {
     }
     
     @Override
-    public Graph<ID, T> addV(Vertex<ID, T> vertex) {
+    public Graph<ID, T> addV(T vertex) {
         decorated.addV(vertex);
         return this;
     }
     
     @Override
-    public Graph<ID, T> addE(Vertex<ID, T> from, Vertex<ID, T> to) {
+    public Graph<ID, T> addE(T from, T to) {
         decorated.addE(from, to);
         decorated.addE(to, from);
         return this;
     }
     
     @Override
-    public Set<Vertex<ID, T>> vertices() {
+    public Set<T> vertices() {
         return decorated.vertices();
     }
     
     @Override
-    public Set<Edge<ID, T>> outEdges(Vertex<ID, T> from) {
+    public Set<Edge<T>> outEdges(T from) {
         return decorated.outEdges(from);
     }
     
     @Override
-    public Vertex<ID, T> findV(ID label) {
+    public T findV(ID label) {
         return decorated.findV(label);
     }
     
     @Override
-    public LinkedList<Vertex<ID, T>> shortestPath(Vertex<ID, T> from, Vertex<ID, T> to) {
+    public LinkedList<T> shortestPath(T from, T to) {
         return decorated.shortestPath(from, to);
     }
 }

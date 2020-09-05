@@ -4,8 +4,8 @@ import name.dan1els.simplegraph.Vertex;
 
 import java.util.LinkedList;
 
-public interface ShortestPathStrategy<ID, T> {
+public interface ShortestPathStrategy<ID, T extends Vertex<ID, ?>> {
     
-    LinkedList<Vertex<ID, T>> shortestPath(Vertex<ID, T> from, Vertex<ID, T> to);
+    LinkedList<T> shortestPath(T from, T to);
     
 }

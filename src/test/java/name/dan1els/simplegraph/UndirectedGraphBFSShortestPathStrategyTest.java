@@ -16,7 +16,7 @@ class UndirectedGraphBFSShortestPathStrategyTest {
      */
     @Test
     void shortestPathExists() {
-        var graph = new UndirectedGraph<Integer, Void>(
+        var graph = new UndirectedGraph<Integer, VoidVertex<Integer>>(
             new AdjacencyList<>(),
             BFSShortestPathStrategy::new
         )
@@ -44,7 +44,7 @@ class UndirectedGraphBFSShortestPathStrategyTest {
      */
     @Test
     void shortestPathDoesNotExist() {
-        var graph = new UndirectedGraph<Integer, Void>(
+        var graph = new UndirectedGraph<Integer, VoidVertex<Integer>>(
             new AdjacencyList<>(),
             BFSShortestPathStrategy::new
         )

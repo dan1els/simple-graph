@@ -6,7 +6,7 @@ import name.dan1els.simplegraph.strategy.ShortPathStrategyFactory;
 import java.util.LinkedList;
 import java.util.Set;
 
-public class DirectedGraph<ID, T> implements Graph<ID, T> {
+public class DirectedGraph<ID, T extends Vertex<ID, ?>> implements Graph<ID, T> {
     
     private final AdjacencySource<ID, T> adjSource;
     private final ShortPathStrategyFactory<ID, T> pathStrategyFactory;
@@ -20,34 +20,34 @@ public class DirectedGraph<ID, T> implements Graph<ID, T> {
     }
     
     @Override
-    public Graph<ID, T> addV(Vertex<ID, T> vertex) {
+    public Graph<ID, T> addV(T vertex) {
         adjSource.addV(vertex);
         return this;
     }
     
     @Override
-    public Graph<ID, T> addE(Vertex<ID, T> from, Vertex<ID, T> to) {
+    public Graph<ID, T> addE(T from, T to) {
         adjSource.addE(from, to);
         return this;
     }
     
     @Override
-    public Set<Vertex<ID, T>> vertices() {
+    public Set<T> vertices() {
         return adjSource.vertices();
     }
     
     @Override
-    public Set<Edge<ID, T>> outEdges(Vertex<ID, T> from) {
+    public Set<Edge<T>> outEdges(T from) {
         return adjSource.outEdges(from);
     }
     
     @Override
-    public Vertex<ID, T> findV(ID label) {
+    public T findV(ID label) {
         return adjSource.findV(label);
     }
     
     @Override
-    public LinkedList<Vertex<ID, T>> shortestPath(Vertex<ID, T> from, Vertex<ID, T> to) {
+    public LinkedList<T> shortestPath(T from, T to) {
         return pathStrategyFactory.newInstance(adjSource).shortestPath(from, to);
     }
 }
