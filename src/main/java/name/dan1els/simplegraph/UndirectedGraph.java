@@ -5,48 +5,49 @@ import name.dan1els.simplegraph.strategy.ShortPathStrategyFactory;
 
 import java.util.LinkedList;
 import java.util.Set;
+import java.util.function.Function;
 
-public class UndirectedGraph<ID, T extends Vertex<ID, ?>> implements Graph<ID, T> {
+public class UndirectedGraph<ID, V extends Vertex<ID, ?>, E extends Edge<V>> implements Graph<ID, V, E> {
     
-    private final DirectedGraph<ID, T> decorated;
+    private final DirectedGraph<ID, V, E> decorated;
     
     public UndirectedGraph(
-        AdjacencySource<ID, T> adjacencySource,
-        ShortPathStrategyFactory<ID, T> pathStrategyFactory
+        AdjacencySource<ID, V, E> adjacencySource,
+        ShortPathStrategyFactory<ID, V, E> pathStrategyFactory
     ) {
         decorated = new DirectedGraph<>(adjacencySource, pathStrategyFactory);
     }
     
     @Override
-    public Graph<ID, T> addV(T vertex) {
+    public Graph<ID, V, E> addV(V vertex) {
         decorated.addV(vertex);
         return this;
     }
     
     @Override
-    public Graph<ID, T> addE(T from, T to) {
-        decorated.addE(from, to);
-        decorated.addE(to, from);
+    public Graph<ID, V, E> addE(V from, V to, Function<V, E> edgeCtor) {
+        decorated.addE(from, to, edgeCtor);
+        decorated.addE(to, from, edgeCtor);
         return this;
     }
     
     @Override
-    public Set<T> vertices() {
+    public Set<V> vertices() {
         return decorated.vertices();
     }
     
     @Override
-    public Set<Edge<T>> outEdges(T from) {
+    public Set<E> outEdges(V from) {
         return decorated.outEdges(from);
     }
     
     @Override
-    public T findV(ID label) {
+    public V findV(ID label) {
         return decorated.findV(label);
     }
     
     @Override
-    public LinkedList<T> shortestPath(T from, T to) {
+    public LinkedList<V> shortestPath(V from, V to) {
         return decorated.shortestPath(from, to);
     }
 }

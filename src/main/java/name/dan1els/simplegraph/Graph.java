@@ -2,18 +2,19 @@ package name.dan1els.simplegraph;
 
 import java.util.LinkedList;
 import java.util.Set;
+import java.util.function.Function;
 
-public interface Graph<ID, T extends Vertex<ID, ?>> {
+public interface Graph<ID, V extends Vertex<ID, ?>, E extends Edge<V>> {
     
-    Graph<ID, T> addV(T vertex);
+    Graph<ID, V, E> addV(V vertex);
     
-    Graph<ID, T> addE(T from, T to);
+    Graph<ID, V, E> addE(V from, V to, Function<V, E> edgeCtor);
     
-    Set<T> vertices();
+    Set<V> vertices();
     
-    Set<Edge<T>> outEdges(T from);
+    Set<E> outEdges(V from);
     
-    T findV(ID label);
+    V findV(ID label);
     
-    LinkedList<T> shortestPath(T from, T to);
+    LinkedList<V> shortestPath(V from, V to);
 }

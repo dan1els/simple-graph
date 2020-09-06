@@ -6,48 +6,48 @@ import name.dan1els.simplegraph.strategy.ShortPathStrategyFactory;
 import java.util.LinkedList;
 import java.util.Set;
 
-public class DirectedGraph<ID, T extends Vertex<ID, ?>> implements Graph<ID, T> {
+public class DirectedGraph<ID, V extends Vertex<ID, ?>, E extends Edge<V>> implements Graph<ID, V, E> {
     
-    private final AdjacencySource<ID, T> adjSource;
-    private final ShortPathStrategyFactory<ID, T> pathStrategyFactory;
+    private final AdjacencySource<ID, V, E> adjSource;
+    private final ShortPathStrategyFactory<ID, V, E> pathStrategyFactory;
     
     public DirectedGraph(
-        AdjacencySource<ID, T> adjacencySource,
-        ShortPathStrategyFactory<ID, T> pathStrategyFactory
+        AdjacencySource<ID, V, E> adjacencySource,
+        ShortPathStrategyFactory<ID, V, E> pathStrategyFactory
     ) {
         this.adjSource = adjacencySource;
         this.pathStrategyFactory = pathStrategyFactory;
     }
     
     @Override
-    public Graph<ID, T> addV(T vertex) {
+    public Graph<ID, V, E> addV(V vertex) {
         adjSource.addV(vertex);
         return this;
     }
     
     @Override
-    public Graph<ID, T> addE(T from, T to) {
-        adjSource.addE(from, to);
+    public Graph<ID, V, E> addE(V from, V to, java.util.function.Function<V, E> edgeCtor) {
+        adjSource.addE(from, to, edgeCtor);
         return this;
     }
     
     @Override
-    public Set<T> vertices() {
+    public Set<V> vertices() {
         return adjSource.vertices();
     }
     
     @Override
-    public Set<Edge<T>> outEdges(T from) {
+    public Set<E> outEdges(V from) {
         return adjSource.outEdges(from);
     }
     
     @Override
-    public T findV(ID label) {
+    public V findV(ID label) {
         return adjSource.findV(label);
     }
     
     @Override
-    public LinkedList<T> shortestPath(T from, T to) {
+    public LinkedList<V> shortestPath(V from, V to) {
         return pathStrategyFactory.newInstance(adjSource).shortestPath(from, to);
     }
 }

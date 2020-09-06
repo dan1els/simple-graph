@@ -16,34 +16,34 @@ import java.util.Set;
  * Not thread-safe.
  *
  * @param <ID> -- vertex label type.
- * @param <T> -- vertex payload type.
+ * @param <V> -- vertex payload type.
  */
-public class BFSShortestPathStrategy<ID, T extends Vertex<ID, ?>> implements ShortestPathStrategy<ID, T> {
+public class BFSShortestPathStrategy<ID, V extends Vertex<ID, ?>> implements ShortestPathStrategy<ID, V, Edge<V>> {
     
-    private final LinkedList<T> unsettledQueue = new LinkedList<>();
-    private final Set<T> visitedVs = new HashSet<>();
-    private final Map<T, T> predecessors = new HashMap<>();
+    private final LinkedList<V> unsettledQueue = new LinkedList<>();
+    private final Set<V> visitedVs = new HashSet<>();
+    private final Map<V, V> predecessors = new HashMap<>();
     
-    private final AdjacencySource<ID, T> adjSource;
+    private final AdjacencySource<ID, V, Edge<V>> adjSource;
     
-    public BFSShortestPathStrategy(AdjacencySource<ID, T> adjSource) {
+    public BFSShortestPathStrategy(AdjacencySource<ID, V, Edge<V>> adjSource) {
         this.adjSource = adjSource;
     }
     
-    public LinkedList<T> shortestPath(T from, T to) {
-        initializeTraversing(from);
+    public LinkedList<V> shortestPath(V from, V to) {
+        initializeVraversing(from);
         return traverse(to) ? path(to) : new LinkedList<>();
     }
     
-    private void initializeTraversing(T from) {
+    private void initializeVraversing(V from) {
         visitedVs.add(from);
         unsettledQueue.offer(from);
     }
     
-    private boolean traverse(T destination) {
+    private boolean traverse(V destination) {
         while (!unsettledQueue.isEmpty()) {
             var current = unsettledQueue.poll();
-            for (Edge<T> edge : adjSource.outEdges(current)) {
+            for (Edge<V> edge : adjSource.outEdges(current)) {
                 var neighbour = edge.outV();
                 if (!visitedVs.contains(neighbour)) {
                     visitedVs.add(neighbour);
@@ -59,8 +59,8 @@ public class BFSShortestPathStrategy<ID, T extends Vertex<ID, ?>> implements Sho
         return false;
     }
     
-    private LinkedList<T> path(T destination) {
-        var path = new LinkedList<T>() {{
+    private LinkedList<V> path(V destination) {
+        var path = new LinkedList<V>() {{
             add(destination);
         }};
         var cursor = destination;

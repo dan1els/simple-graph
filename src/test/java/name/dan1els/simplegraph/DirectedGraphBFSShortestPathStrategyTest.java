@@ -16,7 +16,7 @@ class DirectedGraphBFSShortestPathStrategyTest {
      */
     @Test
     void shortestPathNoCycleExists() {
-        var graph = new DirectedGraph<Integer, VoidVertex<Integer>>(
+        var graph = new DirectedGraph<Integer, VoidVertex<Integer>, Edge<VoidVertex<Integer>>>(
             new AdjacencyList<>(),
             BFSShortestPathStrategy::new
         )
@@ -26,12 +26,12 @@ class DirectedGraphBFSShortestPathStrategyTest {
             .addV(new VoidVertex<>(3))
             .addV(new VoidVertex<>(4));
         graph
-            .addE(graph.findV(0), graph.findV(1))
-            .addE(graph.findV(0), graph.findV(2))
-            .addE(graph.findV(1), graph.findV(2))
-            .addE(graph.findV(1), graph.findV(4))
-            .addE(graph.findV(2), graph.findV(3))
-            .addE(graph.findV(3), graph.findV(4));
+            .addE(graph.findV(0), graph.findV(1), Edge::new)
+            .addE(graph.findV(0), graph.findV(2), Edge::new)
+            .addE(graph.findV(1), graph.findV(2), Edge::new)
+            .addE(graph.findV(1), graph.findV(4), Edge::new)
+            .addE(graph.findV(2), graph.findV(3), Edge::new)
+            .addE(graph.findV(3), graph.findV(4), Edge::new);
         
         assertThat(graph.shortestPath(graph.findV(0), graph.findV(4)))
             .containsExactly(graph.findV(0), graph.findV(1), graph.findV(4));
@@ -45,7 +45,7 @@ class DirectedGraphBFSShortestPathStrategyTest {
      */
     @Test
     void shortestPathWithCycleExists() {
-        var graph = new DirectedGraph<Integer, VoidVertex<Integer>>(
+        var graph = new DirectedGraph<Integer, VoidVertex<Integer>, Edge<VoidVertex<Integer>>>(
             new AdjacencyList<>(),
             BFSShortestPathStrategy::new
         )
@@ -56,13 +56,13 @@ class DirectedGraphBFSShortestPathStrategyTest {
             .addV(new VoidVertex<>(4))
             .addV(new VoidVertex<>(5));
         graph
-            .addE(graph.findV(0), graph.findV(1))
-            .addE(graph.findV(1), graph.findV(2))
-            .addE(graph.findV(1), graph.findV(5))
-            .addE(graph.findV(2), graph.findV(3))
-            .addE(graph.findV(3), graph.findV(1))
-            .addE(graph.findV(3), graph.findV(4))
-            .addE(graph.findV(5), graph.findV(4));
+            .addE(graph.findV(0), graph.findV(1), Edge::new)
+            .addE(graph.findV(1), graph.findV(2), Edge::new)
+            .addE(graph.findV(1), graph.findV(5), Edge::new)
+            .addE(graph.findV(2), graph.findV(3), Edge::new)
+            .addE(graph.findV(3), graph.findV(1), Edge::new)
+            .addE(graph.findV(3), graph.findV(4), Edge::new)
+            .addE(graph.findV(5), graph.findV(4), Edge::new);
     
         assertThat(graph.shortestPath(graph.findV(0), graph.findV(4)))
             .containsExactly(graph.findV(0), graph.findV(1), graph.findV(5), graph.findV(4));
@@ -76,7 +76,7 @@ class DirectedGraphBFSShortestPathStrategyTest {
      */
     @Test
     void shortestPathNoCycleDoesNotExist() {
-        var graph = new DirectedGraph<Integer, VoidVertex<Integer>>(
+        var graph = new DirectedGraph<Integer, VoidVertex<Integer>, Edge<VoidVertex<Integer>>>(
             new AdjacencyList<>(),
             BFSShortestPathStrategy::new
         )
@@ -85,9 +85,9 @@ class DirectedGraphBFSShortestPathStrategyTest {
             .addV(new VoidVertex<>(2))
             .addV(new VoidVertex<>(3));
         graph
-            .addE(graph.findV(0), graph.findV(1))
-            .addE(graph.findV(0), graph.findV(2))
-            .addE(graph.findV(2), graph.findV(1));
+            .addE(graph.findV(0), graph.findV(1), Edge::new)
+            .addE(graph.findV(0), graph.findV(2), Edge::new)
+            .addE(graph.findV(2), graph.findV(1), Edge::new);
         
         assertThat(graph.shortestPath(graph.findV(0), graph.findV(3))).isEmpty();
     }
@@ -100,7 +100,7 @@ class DirectedGraphBFSShortestPathStrategyTest {
      */
     @Test
     void shortestPathCycleDoesNotExist() {
-        var graph = new DirectedGraph<Integer, VoidVertex<Integer>>(
+        var graph = new DirectedGraph<Integer, VoidVertex<Integer>, Edge<VoidVertex<Integer>>>(
             new AdjacencyList<>(),
             BFSShortestPathStrategy::new
         )
@@ -109,9 +109,9 @@ class DirectedGraphBFSShortestPathStrategyTest {
             .addV(new VoidVertex<>(2))
             .addV(new VoidVertex<>(3));
         graph
-            .addE(graph.findV(0), graph.findV(1))
-            .addE(graph.findV(1), graph.findV(2))
-            .addE(graph.findV(2), graph.findV(0));
+            .addE(graph.findV(0), graph.findV(1), Edge::new)
+            .addE(graph.findV(1), graph.findV(2), Edge::new)
+            .addE(graph.findV(2), graph.findV(0), Edge::new);
     
         assertThat(graph.shortestPath(graph.findV(0), graph.findV(3))).isEmpty();
     }

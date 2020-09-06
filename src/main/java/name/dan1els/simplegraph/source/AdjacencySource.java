@@ -4,15 +4,16 @@ import name.dan1els.simplegraph.Edge;
 import name.dan1els.simplegraph.Vertex;
 
 import java.util.Set;
+import java.util.function.Function;
 
-public interface AdjacencySource<ID, T extends Vertex<ID, ?>> {
-    void addV(T vertex);
+public interface AdjacencySource<ID, V extends Vertex<ID, ?>, E extends Edge<V>> {
+    void addV(V vertex);
     
-    void addE(T from, T to);
+    void addE(V from, V to, Function<V, E> egdeCtor);
     
-    Set<T> vertices();
+    Set<V> vertices();
     
-    Set<Edge<T>> outEdges(T from);
+    Set<E> outEdges(V from);
     
-    T findV(ID label);
+    V findV(ID label);
 }

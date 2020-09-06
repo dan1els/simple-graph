@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -14,45 +16,45 @@ import java.util.stream.Collectors;
  *
  * This object is thread safe.
  *
- * @param <T> -- type of vertex payload.
+ * @param <V> -- type of vertex payload.
  */
-public class AdjacencyList<ID, T extends Vertex<ID, ?>> implements AdjacencySource<ID, T> {
+public class AdjacencyList<ID, V extends Vertex<ID, ?>, E extends Edge<V>> implements AdjacencySource<ID, V, E> {
     
-    private final Map<T, Set<Edge<T>>> source;
+    private final Map<V, Set<E>> source;
     
     public AdjacencyList() {
         source = new ConcurrentHashMap<>();
     }
     
     @Override
-    public void addV(T vertex) {
+    public void addV(V vertex) {
         source.putIfAbsent(vertex, new HashSet<>());
     }
     
     @Override
-    public void addE(T from, T to) {
+    public void addE(V from, V to, Function<V,E> edgeCtor) {
         addV(to);
         synchronized (this) {
             var edges = source.getOrDefault(from, new HashSet<>());
-            edges.add(new Edge<>(to));
+            edges.add(edgeCtor.apply(to));
             source.put(from, edges);
         }
     }
     
     @Override
-    public Set<T> vertices() {
+    public Set<V> vertices() {
         return source.keySet()
             .stream()
             .collect(Collectors.toUnmodifiableSet());
     }
     
     @Override
-    public Set<Edge<T>> outEdges(T from) {
+    public Set<E> outEdges(V from) {
         return Set.copyOf(source.get(from));
     }
     
     @Override
-    public T findV(ID label) {
+    public V findV(ID label) {
         return source.keySet()
             .stream()
             .filter(v -> v.hasLabel(label))
