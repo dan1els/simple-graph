@@ -11,45 +11,45 @@ import java.util.Set;
 
 public class UndirectedGraph<ID, V extends Vertex<ID, ?>, E extends Edge<V>> implements Graph<ID, V, E> {
     
-    private final DirectedGraph<ID, V, E> decorated;
+    private final DirectedGraph<ID, V, E> directedGraph;
     
     public UndirectedGraph(
         AdjacencySource<ID, V, E> adjacencySource,
         ShortPathStrategyFactory<ID, V, E> pathStrategyFactory
     ) {
-        decorated = new DirectedGraph<>(adjacencySource, pathStrategyFactory);
+        directedGraph = new DirectedGraph<>(adjacencySource, pathStrategyFactory);
     }
     
     @Override
     public Graph<ID, V, E> addV(V vertex) {
-        decorated.addV(vertex);
+        directedGraph.addV(vertex);
         return this;
     }
     
     @Override
     public Graph<ID, V, E> addE(V from, V to, EdgeFactory<V, E> edgeFactory) {
-        decorated.addE(from, to, edgeFactory);
-        decorated.addE(to, from, edgeFactory);
+        directedGraph.addE(from, to, edgeFactory);
+        directedGraph.addE(to, from, edgeFactory);
         return this;
     }
     
     @Override
     public Set<V> vertices() {
-        return decorated.vertices();
+        return directedGraph.vertices();
     }
     
     @Override
     public Set<E> outEdges(V from) {
-        return decorated.outEdges(from);
+        return directedGraph.outEdges(from);
     }
     
     @Override
     public V findV(ID label) {
-        return decorated.findV(label);
+        return directedGraph.findV(label);
     }
     
     @Override
     public LinkedList<V> shortestPath(V from, V to) {
-        return decorated.shortestPath(from, to);
+        return directedGraph.shortestPath(from, to);
     }
 }
