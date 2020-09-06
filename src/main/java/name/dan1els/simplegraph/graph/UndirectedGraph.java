@@ -1,13 +1,13 @@
 package name.dan1els.simplegraph.graph;
 
 import name.dan1els.simplegraph.edge.Edge;
+import name.dan1els.simplegraph.edge.EdgeFactory;
 import name.dan1els.simplegraph.source.AdjacencySource;
 import name.dan1els.simplegraph.strategy.ShortPathStrategyFactory;
 import name.dan1els.simplegraph.vertex.Vertex;
 
 import java.util.LinkedList;
 import java.util.Set;
-import java.util.function.Function;
 
 public class UndirectedGraph<ID, V extends Vertex<ID, ?>, E extends Edge<V>> implements Graph<ID, V, E> {
     
@@ -27,9 +27,9 @@ public class UndirectedGraph<ID, V extends Vertex<ID, ?>, E extends Edge<V>> imp
     }
     
     @Override
-    public Graph<ID, V, E> addE(V from, V to, Function<V, E> edgeCtor) {
-        decorated.addE(from, to, edgeCtor);
-        decorated.addE(to, from, edgeCtor);
+    public Graph<ID, V, E> addE(V from, V to, EdgeFactory<V, E> edgeFactory) {
+        decorated.addE(from, to, edgeFactory);
+        decorated.addE(to, from, edgeFactory);
         return this;
     }
     

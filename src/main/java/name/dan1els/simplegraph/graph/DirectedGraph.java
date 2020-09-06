@@ -1,6 +1,7 @@
 package name.dan1els.simplegraph.graph;
 
 import name.dan1els.simplegraph.edge.Edge;
+import name.dan1els.simplegraph.edge.EdgeFactory;
 import name.dan1els.simplegraph.source.AdjacencySource;
 import name.dan1els.simplegraph.strategy.ShortPathStrategyFactory;
 import name.dan1els.simplegraph.vertex.Vertex;
@@ -28,8 +29,8 @@ public class DirectedGraph<ID, V extends Vertex<ID, ?>, E extends Edge<V>> imple
     }
     
     @Override
-    public Graph<ID, V, E> addE(V from, V to, java.util.function.Function<V, E> edgeCtor) {
-        adjSource.addE(from, to, edgeCtor);
+    public Graph<ID, V, E> addE(V from, V to, EdgeFactory<V, E> edgeFactory) {
+        adjSource.addE(from, to, edgeFactory);
         return this;
     }
     

@@ -1,13 +1,13 @@
 package name.dan1els.simplegraph.source;
 
 import name.dan1els.simplegraph.edge.Edge;
+import name.dan1els.simplegraph.edge.EdgeFactory;
 import name.dan1els.simplegraph.vertex.Vertex;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -31,11 +31,11 @@ public class AdjacencyList<ID, V extends Vertex<ID, ?>, E extends Edge<V>> imple
     }
     
     @Override
-    public void addE(V from, V to, Function<V,E> edgeCtor) {
+    public void addE(V from, V to, EdgeFactory<V,E> edgeFactory) {
         addV(to);
         synchronized (this) {
             var edges = source.getOrDefault(from, new HashSet<>());
-            edges.add(edgeCtor.apply(to));
+            edges.add(edgeFactory.newEdge(to));
             source.put(from, edges);
         }
     }
