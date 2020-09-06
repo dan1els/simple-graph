@@ -3,7 +3,7 @@ package name.dan1els.simplegraph;
 import name.dan1els.simplegraph.edge.WeightedEdge;
 import name.dan1els.simplegraph.graph.DirectedGraph;
 import name.dan1els.simplegraph.source.AdjacencyList;
-import name.dan1els.simplegraph.strategy.BFSWeightedShortestPathStrategy;
+import name.dan1els.simplegraph.strategy.SomeWeightedShortestPathStrategy;
 import name.dan1els.simplegraph.vertex.VoidVertex;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ public class WeightedGraphTest {
     void testWeightedShortestPath() {
         var graph = new DirectedGraph<Integer, VoidVertex<Integer>, WeightedEdge<Integer, VoidVertex<Integer>>>(
             new AdjacencyList<>(),
-            BFSWeightedShortestPathStrategy::new
+            SomeWeightedShortestPathStrategy::new
         )
             .addV(new VoidVertex<>(1))
             .addV(new VoidVertex<>(2));
