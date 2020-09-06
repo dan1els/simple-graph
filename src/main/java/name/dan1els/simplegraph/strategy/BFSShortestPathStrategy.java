@@ -31,11 +31,11 @@ public class BFSShortestPathStrategy<ID, V extends Vertex<ID, ?>> implements Sho
     }
     
     public LinkedList<V> shortestPath(V from, V to) {
-        initializeVraversing(from);
+        initializeTraversing(from);
         return traverse(to) ? path(to) : new LinkedList<>();
     }
     
-    private void initializeVraversing(V from) {
+    private void initializeTraversing(V from) {
         visitedVs.add(from);
         unsettledQueue.offer(from);
     }
