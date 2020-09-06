@@ -1,7 +1,7 @@
 package name.dan1els.simplegraph.source;
 
-import name.dan1els.simplegraph.Edge;
-import name.dan1els.simplegraph.Vertex;
+import name.dan1els.simplegraph.edge.Edge;
+import name.dan1els.simplegraph.vertex.Vertex;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.TimeUnit;

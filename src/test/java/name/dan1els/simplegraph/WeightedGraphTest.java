@@ -1,7 +1,10 @@
 package name.dan1els.simplegraph;
 
+import name.dan1els.simplegraph.edge.WeightedEdge;
+import name.dan1els.simplegraph.graph.DirectedGraph;
 import name.dan1els.simplegraph.source.AdjacencyList;
 import name.dan1els.simplegraph.strategy.BFSWeightedShortestPathStrategy;
+import name.dan1els.simplegraph.vertex.VoidVertex;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

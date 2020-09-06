@@ -1,10 +1,9 @@
 package name.dan1els.simplegraph.strategy;
 
-import name.dan1els.simplegraph.Vertex;
-import name.dan1els.simplegraph.WeightedEdge;
+import name.dan1els.simplegraph.edge.WeightedEdge;
 import name.dan1els.simplegraph.source.AdjacencySource;
+import name.dan1els.simplegraph.vertex.Vertex;
 
-import javax.naming.OperationNotSupportedException;
 import java.util.LinkedList;
 
 /**

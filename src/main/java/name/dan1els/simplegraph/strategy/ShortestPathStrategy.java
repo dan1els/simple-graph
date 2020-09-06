@@ -1,7 +1,7 @@
 package name.dan1els.simplegraph.strategy;
 
-import name.dan1els.simplegraph.Edge;
-import name.dan1els.simplegraph.Vertex;
+import name.dan1els.simplegraph.edge.Edge;
+import name.dan1els.simplegraph.vertex.Vertex;
 
 import java.util.LinkedList;
 

@@ -1,7 +1,10 @@
 package name.dan1els.simplegraph;
 
+import name.dan1els.simplegraph.edge.Edge;
+import name.dan1els.simplegraph.graph.UndirectedGraph;
 import name.dan1els.simplegraph.source.AdjacencyList;
 import name.dan1els.simplegraph.strategy.BFSShortestPathStrategy;
+import name.dan1els.simplegraph.vertex.VoidVertex;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;

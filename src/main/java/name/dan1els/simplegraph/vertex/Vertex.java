@@ -1,4 +1,4 @@
-package name.dan1els.simplegraph;
+package name.dan1els.simplegraph.vertex;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

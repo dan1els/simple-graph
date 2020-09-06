@@ -1,7 +1,8 @@
-package name.dan1els.simplegraph;
+package name.dan1els.simplegraph.edge;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import name.dan1els.simplegraph.vertex.Vertex;
 
 @EqualsAndHashCode
 @ToString

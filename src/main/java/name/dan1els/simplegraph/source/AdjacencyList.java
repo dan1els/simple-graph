@@ -1,14 +1,13 @@
 package name.dan1els.simplegraph.source;
 
-import name.dan1els.simplegraph.Edge;
-import name.dan1els.simplegraph.Vertex;
+import name.dan1els.simplegraph.edge.Edge;
+import name.dan1els.simplegraph.vertex.Vertex;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**

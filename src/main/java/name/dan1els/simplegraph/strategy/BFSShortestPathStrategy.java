@@ -1,8 +1,8 @@
 package name.dan1els.simplegraph.strategy;
 
-import name.dan1els.simplegraph.Edge;
-import name.dan1els.simplegraph.Vertex;
+import name.dan1els.simplegraph.edge.Edge;
 import name.dan1els.simplegraph.source.AdjacencySource;
+import name.dan1els.simplegraph.vertex.Vertex;
 
 import java.util.HashMap;
 import java.util.HashSet;
