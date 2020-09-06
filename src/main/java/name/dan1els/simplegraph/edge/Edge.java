@@ -6,15 +6,15 @@ import name.dan1els.simplegraph.vertex.Vertex;
 
 @EqualsAndHashCode
 @ToString
-public class Edge<T extends Vertex<?, ?>> {
+public class Edge<V extends Vertex<?, ?>> {
     
-    private final T to;
+    private final V to;
     
-    public Edge(T to) {
+    public Edge(V to) {
         this.to = to;
     }
     
-    public T outV() {
+    public V outV() {
         return to;
     }
 }
