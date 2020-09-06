@@ -9,13 +9,13 @@ import java.util.LinkedList;
 /**
  * TODO: To be done.
  */
-public class SomeWeightedShortestPathStrategy<ID, V extends Vertex<ID, ?>, W extends Comparable<W>>
-    implements ShortestPathStrategy<ID, V, WeightedEdge<W, V>> {
+public class SomeWeightedShortestPathStrategy<ID, V extends Vertex<ID, ?>, W extends Comparable<W>, E extends WeightedEdge<W, V>>
+    implements ShortestPathStrategy<ID, V, E> {
     
     @SuppressWarnings("FieldCanBeLocal")
-    private final AdjacencySource<ID, V, WeightedEdge<W, V>> adjSource;
+    private final AdjacencySource<ID, V, E> adjSource;
     
-    public SomeWeightedShortestPathStrategy(AdjacencySource<ID, V, WeightedEdge<W, V>> adjSource) {
+    public SomeWeightedShortestPathStrategy(AdjacencySource<ID, V, E> adjSource) {
         this.adjSource = adjSource;
     }
     

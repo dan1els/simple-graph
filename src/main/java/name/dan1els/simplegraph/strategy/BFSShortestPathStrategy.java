@@ -18,15 +18,15 @@ import java.util.Set;
  * @param <ID> -- vertex label type.
  * @param <V> -- vertex payload type.
  */
-public class BFSShortestPathStrategy<ID, V extends Vertex<ID, ?>> implements ShortestPathStrategy<ID, V, Edge<V>> {
+public class BFSShortestPathStrategy<ID, V extends Vertex<ID, ?>, E extends Edge<V>> implements ShortestPathStrategy<ID, V, E> {
     
     private final LinkedList<V> unsettledQueue = new LinkedList<>();
     private final Set<V> visitedVs = new HashSet<>();
     private final Map<V, V> predecessors = new HashMap<>();
     
-    private final AdjacencySource<ID, V, Edge<V>> adjSource;
+    private final AdjacencySource<ID, V, E> adjSource;
     
-    public BFSShortestPathStrategy(AdjacencySource<ID, V, Edge<V>> adjSource) {
+    public BFSShortestPathStrategy(AdjacencySource<ID, V, E> adjSource) {
         this.adjSource = adjSource;
     }
     
@@ -43,7 +43,7 @@ public class BFSShortestPathStrategy<ID, V extends Vertex<ID, ?>> implements Sho
     private boolean traverse(V destination) {
         while (!unsettledQueue.isEmpty()) {
             var current = unsettledQueue.poll();
-            for (Edge<V> edge : adjSource.outEdges(current)) {
+            for (E edge : adjSource.outEdges(current)) {
                 var neighbour = edge.outV();
                 if (!visitedVs.contains(neighbour)) {
                     visitedVs.add(neighbour);
