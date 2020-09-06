@@ -3,7 +3,7 @@
 Create a graph:
 
 ```java
-var graph = new DirectedGraph<Integer, Void>(
+var graph = new DirectedGraph<Integer, Vertex<Integer, Void>>(
     new AdjacencyList<>(),
     BFSShortestPathStrategy::new
 )
