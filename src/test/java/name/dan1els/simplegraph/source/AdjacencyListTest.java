@@ -2,6 +2,7 @@ package name.dan1els.simplegraph.source;
 
 import name.dan1els.simplegraph.edge.Edge;
 import name.dan1els.simplegraph.vertex.Vertex;
+import name.dan1els.simplegraph.vertex.VoidVertex;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -72,5 +73,14 @@ class AdjacencyListTest {
             .hasSize(10001)
             .containsAll(outVs)
             .contains(fromV);
+    }
+    
+    @Test
+    void addSameVTwiceShouldBeAddedFirst() {
+        var sut = new AdjacencyList<Integer, VoidVertex<Integer>, Edge<VoidVertex<Integer>>>();
+        sut.addV(new VoidVertex<>(0));
+        sut.addV(new VoidVertex<>(0));
+       
+        assertThat(sut.vertices()).hasSize(1);
     }
 }
