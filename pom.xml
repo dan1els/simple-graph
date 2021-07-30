@@ -13,6 +13,10 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
+    <scm>
+        <connection>scm:git:git@github.com:dan1els/simple-graph.git</connection>
+    </scm>
+
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
